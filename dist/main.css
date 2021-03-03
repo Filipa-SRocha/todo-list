@@ -1,0 +1,23 @@
+#container{
+    display:grid;
+    grid-template-rows: 1fr 4fr;
+    grid-template-columns: 2fr 6fr;
+    grid-template-areas: 
+    "info info"
+    "project main";
+}
+
+#info-div{
+    grid-area: info;
+    background: yellow;
+}
+
+#projects-div{
+    grid-area: project;
+    background: blueviolet;
+}
+
+#main-app-div{
+    grid-area: main;
+    background: grey;
+}
