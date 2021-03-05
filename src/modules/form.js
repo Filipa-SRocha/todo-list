@@ -17,6 +17,7 @@ function makeFormInput(inputId, type){
 function makeNewEntryForm(){
     const newEntryDiv = document.createElement("div");
     newEntryDiv.id="new-entry-div";
+    const breakLine = document.createElement("br");
     //title
     const titleLabel = makeLabel("Title: ");
     const inputTitle = makeFormInput("input-title", "text");
@@ -40,6 +41,7 @@ function makeNewEntryForm(){
     newEntryDiv.appendChild(inputTitle);
     newEntryDiv.appendChild(descriptionLabel);
     newEntryDiv.appendChild(inputDescription);
+    newEntryDiv.appendChild(breakLine);
     newEntryDiv.appendChild(dateLabel);
     newEntryDiv.appendChild(inputDate);
     newEntryDiv.appendChild(priorityLabel);
@@ -97,10 +99,21 @@ function clearNewEntryForm(){
     })
     return 1;
 }
+
+function clearNewProjectForm(){
+    const projForm = document.querySelector("#new-project-form-div");
+    projForm.childNodes.forEach(node => {
+        if (node.value) node.value="";
+    })
+    return 1;
+}
+
+
 export{makeNewEntryForm, 
     openNewEntryForm, 
     closeNewEntryForm, 
     clearNewEntryForm, 
     makeNewProjectForm,
     closeNewProjectForm,
+    clearNewProjectForm,
     openNewProjectForm};

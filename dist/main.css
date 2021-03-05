@@ -1,7 +1,87 @@
+body{
+    padding: 0px;
+    margin: 0;
+}
+
+/*    ----   forms    -------  */
+#new-entry-div{
+    background: rgb(255, 255, 159);
+    padding: 10px;
+}
+
+input{
+    display:inline-block;
+    margin: 10px 0px;
+}
+
+
+#new-entry-submit-button{
+    margin: 10px 10px;
+    display: block;
+}
+
+/*---------------display tasks-------------------*/
+
+.visually-hidden-checkbox{
+    opacity: 0.5;
+    display: inline-block;
+    height: 0px;
+}
+
+.checkbox-container{
+    cursor: pointer;
+    display: inline-block;
+}
+.custom-checkbox{
+    position: relative;
+    bottom: -7px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.checkbox-container #check:checked ~ .custom-checkbox{
+    background: green;
+}
+
+.custom-checkbox::after{
+    content: "";
+    display: none;
+}
+
+.checkbox-container #check:checked ~ .custom-checkbox::after{
+    display: block;
+}
+
+.checkbox-container .custom-checkbox::after{
+    margin-left:6px;
+    margin-top: 1px;
+    width: 5px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+p{
+    width: fit-content;
+    display: inline-block;
+    margin: 5px;
+}
+
+/*------------------------------*/
+
 #container{
+    padding: 10px;
+    width:100vw;
+    height: 50vw;
     display:grid;
     grid-template-rows: 1fr 4fr;
-    grid-template-columns: 2fr 6fr;
+    grid-template-columns: 1fr 6fr;
+    grid-gap: 10px;
     grid-template-areas: 
     "info info"
     "project main";
@@ -9,15 +89,24 @@
 
 #info-div{
     grid-area: info;
-    background: yellow;
+    background: rgb(255, 255, 255);
 }
 
 #projects-div{
     grid-area: project;
-    background: blueviolet;
+    background: rgba(12, 143, 88, 0.726);
+}
+
+.display-project-button{
+    display: block;
+    height: 2em;
+    width: 9em;
+}
+#new-project{
+    margin: 10px;
 }
 
 #main-app-div{
     grid-area: main;
-    background: grey;
+
 }

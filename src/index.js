@@ -1,9 +1,10 @@
-import {makeNewEntryForm, openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
-        makeNewProjectForm, openNewProjectForm, closeNewProjectForm} from './modules/form';
+import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
+        openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
 import { displayTask, makeTask } from './modules/task';
+import { displayProject, makeProject} from './modules/projects';
 
-
+let projects=[];
 loadPage();
 const allTasks=[];
 const test= document.querySelector("#test");
@@ -18,6 +19,7 @@ const Buttons =(function(){
     newProjectButton.addEventListener("click", newProject);
 
     function newEntry(){
+        newEntryButton.removeEventListener("click", newEntry)
         const submitButton = document.querySelector("#new-entry-submit-button");
 
         openNewEntryForm();
@@ -30,12 +32,24 @@ const Buttons =(function(){
             closeNewEntryForm();
             clearNewEntryForm(); 
             displayTask(task);
+            newEntryButton.addEventListener("click", newEntry);
         }
 
     }
 
     function newProject(){
+        const submitButton = document.querySelector("#submit-project")
         openNewProjectForm();
+        submitButton.addEventListener("click", addProject);
+        
+        function addProject(){
+            submitButton.removeEventListener("click", addProject);
+            let project= makeProject();
+            projects.push(project);
+            closeNewProjectForm();
+            clearNewProjectForm();
+            displayProject(project);
+        }
     }
 })();
 

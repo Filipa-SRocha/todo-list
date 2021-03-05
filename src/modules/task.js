@@ -24,17 +24,34 @@ function makeP(pclass, id ,text){
     return paragraph;
 }
 
+function makeCheckbox(){
+    const customCheckbox = document.createElement("div");
+    const label= document.createElement("label");
+    label.classList.add("checkbox-container");
+    const checkButton = document.createElement("input");
+
+    label.setAttribute("for", "check");
+    label.textContent=" ";
+    checkButton.type="checkbox";
+    checkButton.id="check";
+    checkButton.classList.add("visually-hidden-checkbox");
+
+    customCheckbox.classList.add("custom-checkbox");
+
+    label.appendChild(checkButton);
+    label.appendChild(customCheckbox);
+
+    return label;
+}
 
 function displayTask(task){
     const tasksDiv=document.querySelector("#tasks-div");
     const thisTaskDiv=document.createElement("div");
-
-    const checkButton = document.createElement("input");
-    checkButton.type="checkbox";
+    const customCheckbox = makeCheckbox();
 
     const titleParag = makeP("display-task", "display-task-title",task.title);
     
-    thisTaskDiv.appendChild(checkButton);
+    thisTaskDiv.appendChild(customCheckbox);
     thisTaskDiv.appendChild(titleParag);
 
     tasksDiv.appendChild(thisTaskDiv);
