@@ -28,9 +28,11 @@ input{
     height: 0px;
 }
 
+
 .checkbox-container{
     cursor: pointer;
     display: inline-block;
+    margin: 2px;
 }
 .custom-checkbox{
     position: relative;
@@ -42,7 +44,7 @@ input{
     border-radius: 50%;
 }
 
-.checkbox-container #check:checked ~ .custom-checkbox{
+.checkbox-container .visually-hidden-checkbox:checked ~ .custom-checkbox{
     background: green;
 }
 
@@ -51,7 +53,7 @@ input{
     display: none;
 }
 
-.checkbox-container #check:checked ~ .custom-checkbox::after{
+.checkbox-container .visually-hidden-checkbox:checked ~ .custom-checkbox::after{
     display: block;
 }
 
@@ -107,6 +109,6 @@ p{
 }
 
 #main-app-div{
+    display:none;
     grid-area: main;
-
 }
