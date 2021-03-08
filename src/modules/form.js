@@ -34,6 +34,10 @@ function makeNewEntryForm(){
     const submit = document.createElement("button");
     submit.textContent = "Submit";
     submit.id="new-entry-submit-button";
+    //cancel 
+    const cancel = document.createElement("button");
+    cancel.textContent = "Cancel";
+    cancel.id = "new-entry-cancel-button"; 
 
     
 
@@ -47,6 +51,7 @@ function makeNewEntryForm(){
     newEntryDiv.appendChild(priorityLabel);
     newEntryDiv.appendChild(inputPriority);
     newEntryDiv.appendChild(submit);
+    newEntryDiv.appendChild(cancel);
 
     return newEntryDiv;
 }
@@ -62,12 +67,16 @@ function makeNewProjectForm(){
     const submitButton = document.createElement("button");
     submitButton.id="submit-project";
     submitButton.textContent = "Submit";
+    const cancel = document.createElement("button");
+    cancel.textContent = "Cancel";
+    cancel.id = "cancel-project"; 
 
     projectDiv.appendChild(nameLabel);
     projectDiv.appendChild(inputName);
     projectDiv.appendChild(descriptionLabel);
     projectDiv.appendChild(inputDescription);
     projectDiv.appendChild(submitButton);
+    projectDiv.appendChild(cancel);
 
     return projectDiv;
 }

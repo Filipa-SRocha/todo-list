@@ -12,7 +12,10 @@ const Buttons =(function(){
     const newEntryButton = document.querySelector("#new-entry");
     const newProjectButton = document.querySelector("#new-project");
     const submitEntryButton = document.querySelector("#new-entry-submit-button");
+    const cancelEntryButton = document.querySelector("#new-entry-cancel-button");
     const submitProjectButton = document.querySelector("#submit-project");
+    const cancelProjectButton = document.querySelector("#cancel-project");
+   
     let projectsButtons = document.querySelectorAll(".display-project-button");
     let workingProject;
     
@@ -22,8 +25,16 @@ const Buttons =(function(){
     newProjectButton.addEventListener("click", openNewProjectForm);
     projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
     submitEntryButton.addEventListener("click", addNewEntry); 
+    cancelEntryButton.addEventListener("click", () => {
+        closeNewEntryForm();
+        clearNewEntryForm();
+    });
+    cancelProjectButton.addEventListener("click", ()=>{
+        closeNewProjectForm();
+        clearNewProjectForm();
+    });
 
-    
+
     function updateButtons(){
         projectsButtons = document.querySelectorAll(".display-project-button");
         projectsButtons.forEach(projBtn => projBtn.removeEventListener("click", openProject));
@@ -53,7 +64,6 @@ const Buttons =(function(){
         closeNewEntryForm();
         clearNewEntryForm(); 
         updateTasks(workingProject.tasks);
-
     }
 
     

@@ -49,12 +49,14 @@ function displayTask(task){
     const thisTaskDiv=document.createElement("div");
     thisTaskDiv.classList.add("one-task");
     const customCheckbox = makeCheckbox(task.id);
+    const dateParag= makeP("display-task", "display-task-date", task.date);
     
 
     const titleParag = makeP("display-task", "display-task-title",task.title);
     
     thisTaskDiv.appendChild(customCheckbox);
     thisTaskDiv.appendChild(titleParag);
+    thisTaskDiv.appendChild(dateParag);
 
     tasksDiv.appendChild(thisTaskDiv);
 }
