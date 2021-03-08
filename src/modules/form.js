@@ -14,6 +14,21 @@ function makeFormInput(inputId, type){
     return input;
 }
 
+function makeFormDropDown(name, id, ValueArr){
+    const menu = document.createElement("select");
+    ValueArr.forEach(value => {
+        const item = document.createElement("option");
+        item.value= value
+        item.textContent= value;
+        menu.appendChild(item);
+    });
+   
+    menu.name=name;
+    menu.id=id;
+
+    return menu;
+}
+
 function makeNewEntryForm(){
     const newEntryDiv = document.createElement("div");
     newEntryDiv.id="new-entry-div";
@@ -29,7 +44,7 @@ function makeNewEntryForm(){
     const inputDate = makeFormInput("input-date", "date");
     //priority
     const priorityLabel = makeLabel("Priority: ");
-    const inputPriority = makeFormInput("input-priority", "checkbox");
+    const inputPriority = makeFormDropDown("priority", "input-priority", ["low", "medium", "high"]);
     // submit
     const submit = document.createElement("button");
     submit.textContent = "Submit";

@@ -1,3 +1,4 @@
+import{format, parseISO}  from 'date-fns';
 //task factory
 const taskFactory = (title, description, date, priority, id) =>{
 
@@ -44,21 +45,27 @@ function makeCheckbox(index){
     return label;
 }
 
+function paintPriority(priorityLevel, divToPaint){
+    if (priorityLevel == "medium") divToPaint.style.background="yellow";
+    else if (priorityLevel == "high") divToPaint.style.background = "red";
+}
+
 function displayTask(task){
     const tasksDiv=document.querySelector("#tasks-div");
     const thisTaskDiv=document.createElement("div");
     thisTaskDiv.classList.add("one-task");
     const customCheckbox = makeCheckbox(task.id);
-    const dateParag= makeP("display-task", "display-task-date", task.date);
-    
-
+    let date = format(parseISO(task.date), 'dd MMM');
+    const dateParag= makeP("display-task", "display-task-date", date);
     const titleParag = makeP("display-task", "display-task-title",task.title);
-    
+
+
     thisTaskDiv.appendChild(customCheckbox);
     thisTaskDiv.appendChild(titleParag);
     thisTaskDiv.appendChild(dateParag);
 
     tasksDiv.appendChild(thisTaskDiv);
+    paintPriority(task.priority, thisTaskDiv);
 }
 
 function displayAllTasks(taskArray){
