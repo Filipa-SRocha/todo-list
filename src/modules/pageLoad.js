@@ -1,4 +1,5 @@
 import { closeNewEntryForm, closeNewProjectForm, makeNewEntryForm, makeNewProjectForm } from "./form";
+import {initializeProjects, saveProject} from './projects'
 
 function loadPage(){
     const mainDiv=document.querySelector("#main-app-div");
@@ -12,6 +13,9 @@ function loadPage(){
     closeNewEntryForm();
     closeNewProjectForm();
     
+    //inicialize variables
+    initializeProjects();
+    saveProject();
 }
 
 export{loadPage};

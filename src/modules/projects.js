@@ -1,7 +1,9 @@
 import { openNewProjectForm } from "./form";
+let allProjects;
 
 const projectFactory = (title, description) =>{
-    let tasks=[];
+    let tasks = [];
+    let id = allProjects.length;
 
     function addTaskToProject(task){
         tasks.push(task);
@@ -9,9 +11,12 @@ const projectFactory = (title, description) =>{
 
     return {title,
         description,
+        id,
+        tasks,
         addTaskToProject
     }
 }
+
 
 
 function makeProject(){
@@ -22,7 +27,22 @@ function makeProject(){
 
     return project;
 }
+function initializeProjects(){
+    allProjects=[];
+}
 
+function saveProject(project){
+    allProjects.push(project);
+}
+
+
+function addTask(project, task){
+    project.addTaskToProject(task);
+}
+
+function getProject(index){
+    return allProjects[index];
+}
 
 
 function displayProject(project){
@@ -31,6 +51,7 @@ function displayProject(project){
     btn.classList.add("display-project-button");
 
     btn.textContent = project.title;
+    btn.setAttribute("data-index", project.id);
     projDiv.appendChild(btn);
 }
-export{makeProject, displayProject}
+export{makeProject, displayProject, addTask, initializeProjects, saveProject, getProject}

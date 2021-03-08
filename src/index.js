@@ -1,56 +1,66 @@
 import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
         openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
-import { displayTask, makeTask } from './modules/task';
-import { displayProject, makeProject} from './modules/projects';
+import {makeTask, showTaskDiv, updateTasks } from './modules/task';
+import { displayProject, getProject, makeProject, saveProject} from './modules/projects';
 
-let projects=[];
+
 loadPage();
-const allTasks=[];
-const test= document.querySelector("#test");
 
 
 const Buttons =(function(){
     const newEntryButton = document.querySelector("#new-entry");
     const newProjectButton = document.querySelector("#new-project");
+    const submitEntryButton = document.querySelector("#new-entry-submit-button");
+    const submitProjectButton = document.querySelector("#submit-project");
+    let projectsButtons = document.querySelectorAll(".display-project-button");
+    let workingProject;
+    
+    // event listeners
+    submitProjectButton.addEventListener("click", addProject);
+    newEntryButton.addEventListener("click", openNewEntryForm);
+    newProjectButton.addEventListener("click", openNewProjectForm);
+    projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
+    submitEntryButton.addEventListener("click", addNewEntry); 
 
-    newEntryButton.addEventListener("click", newEntry);
+    
+    function updateButtons(){
+        projectsButtons = document.querySelectorAll(".display-project-button");
+        projectsButtons.forEach(projBtn => projBtn.removeEventListener("click", openProject));
+        projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
+    }
 
-    newProjectButton.addEventListener("click", newProject);
+    function addProject(){
+        let project= makeProject();
+        saveProject(project);
+        closeNewProjectForm();
+        clearNewProjectForm();
+        displayProject(project);
+        updateButtons();            
+    }
 
-    function newEntry(){
-        newEntryButton.removeEventListener("click", newEntry)
-        const submitButton = document.querySelector("#new-entry-submit-button");
+    function openProject(){
+        showTaskDiv();
+        let project = getProject(this.dataset.index);
+        workingProject = project;
+        updateTasks(project.tasks);    
+    }
 
-        openNewEntryForm();
-        submitButton.addEventListener("click",addTask);  
-
-        function addTask(){
-            submitButton.removeEventListener("click", addTask);
-            let task = makeTask();
-            allTasks.push(task);
-            closeNewEntryForm();
-            clearNewEntryForm(); 
-            displayTask(task);
-            newEntryButton.addEventListener("click", newEntry);
-        }
+    function addNewEntry(){
+        console.log(`aqui ${workingProject}`);
+        let task = makeTask(workingProject.tasks.length);
+        workingProject.addTaskToProject(task);
+        closeNewEntryForm();
+        clearNewEntryForm(); 
+        updateTasks(workingProject.tasks);
 
     }
 
-    function newProject(){
-        const submitButton = document.querySelector("#submit-project")
-        openNewProjectForm();
-        submitButton.addEventListener("click", addProject);
-        
-        function addProject(){
-            submitButton.removeEventListener("click", addProject);
-            let project= makeProject();
-            projects.push(project);
-            closeNewProjectForm();
-            clearNewProjectForm();
-            displayProject(project);
-        }
-    }
+    
+
+
+    
+    
 })();
 
 
