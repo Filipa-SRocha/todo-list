@@ -22,6 +22,18 @@ input{
 
 /*---------------display tasks-------------------*/
 
+.one-task{
+    margin: 3px;
+}
+.more-content{
+    overflow: hidden;
+    background: rgb(233, 233, 233);
+    display: block;
+    height: 0px;
+    transition: height 0.8s ease-out;
+}
+
+
 .visually-hidden-checkbox{
     opacity: 0.5;
     display: inline-block;
