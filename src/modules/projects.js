@@ -9,11 +9,16 @@ const projectFactory = (title, description) =>{
         tasks.push(task);
     }
 
+    function removeTaskFromProject(task){
+        tasks.splice(task.id, task.id+1);
+    }
+
     return {title,
         description,
         id,
         tasks,
-        addTaskToProject
+        addTaskToProject,
+        removeTaskFromProject
     }
 }
 
@@ -46,6 +51,10 @@ function addTask(project, task){
     project.addTaskToProject(task);
 }
 
+function removeTask(project, task){
+    project.removeTaskFromProject(task);
+}
+
 function getProject(index){
     return allProjects[index];
 }
@@ -60,4 +69,6 @@ function displayProject(project){
     btn.setAttribute("data-index", project.id);
     projDiv.appendChild(btn);
 }
-export{makeProject, displayProject, addTask, initializeProjects, saveProject, getProject, defaultProject}
+export{makeProject, displayProject, addTask, 
+        initializeProjects, saveProject, getProject, 
+        defaultProject, removeTask}

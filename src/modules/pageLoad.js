@@ -1,5 +1,5 @@
 import { closeNewEntryForm, closeNewProjectForm, makeNewEntryForm, makeNewProjectForm } from "./form";
-import {defaultProject, initializeProjects, makeProject, saveProject} from './projects'
+import {defaultProject, initializeProjects} from './projects'
 import { exampleTask } from "./task";
 
 function loadPage(){

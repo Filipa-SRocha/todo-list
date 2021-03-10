@@ -58,29 +58,46 @@ function paintPriority(priorityLevel, divToPaint){
 
 function displayTask(task){
     const tasksDiv=document.querySelector("#tasks-div");
+
+    //this task Div
     const thisTaskDiv=document.createElement("div");
     thisTaskDiv.setAttribute("data-task-div-index", task.id);
     thisTaskDiv.classList.add("one-task");
+
+    // task info
     const customCheckbox = makeCheckbox(task.id);
     let date = format(parseISO(task.date), 'dd MMM');
     const dateParag= makeP("display-task", "display-task-date", date);
     const titleParag = makeP("display-task", "display-task-title",task.title);
+    
+    //button for collapsible details div
     const showMoreButton = document.createElement("button");
     showMoreButton.classList.add("collapsible");
     showMoreButton.textContent="Show details";
     showMoreButton.setAttribute("data-index", task.id);
+    
+    //collapsible div content
+    const moreContent = showMoreContent(task);
+
+    //delete task button
+    const delTaskBtn = document.createElement("button");
+    delTaskBtn.classList.add("del-task-btn");
+    delTaskBtn.textContent = "X";
+    delTaskBtn.setAttribute("data-index", task.id);
+
+    //change task color in relation to priority
+    paintPriority(task.priority, thisTaskDiv);
+
 
     thisTaskDiv.appendChild(customCheckbox);
     thisTaskDiv.appendChild(titleParag);
     thisTaskDiv.appendChild(dateParag);
     thisTaskDiv.appendChild(showMoreButton);
+    thisTaskDiv.appendChild(delTaskBtn);
+    thisTaskDiv.appendChild(moreContent); //last child
+    
 
     tasksDiv.appendChild(thisTaskDiv);
-    paintPriority(task.priority, thisTaskDiv);
-
-    const moreContent = showMoreContent(task);
-    thisTaskDiv.appendChild(moreContent);
-
 }
 
 function showMoreContent(task){
