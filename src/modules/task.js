@@ -17,6 +17,12 @@ function makeTask(index){
     return task;
 }
 
+function exampleTask(){
+    const description ="Go to the Odin Project and chose a path to get your web dev career started";
+    const exTask = taskFactory("Finish the Odin Project", description, "2021-03-09", "high", 0);
+    return exTask;
+}
+
 function makeP(pclass, id ,text){
     const paragraph = document.createElement("p");
     paragraph.class = pclass;
@@ -46,26 +52,54 @@ function makeCheckbox(index){
 }
 
 function paintPriority(priorityLevel, divToPaint){
-    if (priorityLevel == "medium") divToPaint.style.background="yellow";
-    else if (priorityLevel == "high") divToPaint.style.background = "red";
+    if (priorityLevel == "medium") divToPaint.style.background = "rgba(255, 205, 5, 0.44)";
+    else if (priorityLevel == "high") divToPaint.style.background = "rgba(248, 6, 6, 0.44)";
 }
 
 function displayTask(task){
     const tasksDiv=document.querySelector("#tasks-div");
     const thisTaskDiv=document.createElement("div");
+    thisTaskDiv.setAttribute("data-task-div-index", task.id);
     thisTaskDiv.classList.add("one-task");
     const customCheckbox = makeCheckbox(task.id);
     let date = format(parseISO(task.date), 'dd MMM');
     const dateParag= makeP("display-task", "display-task-date", date);
     const titleParag = makeP("display-task", "display-task-title",task.title);
-
+    const showMoreButton = document.createElement("button");
+    showMoreButton.classList.add("collapsible");
+    showMoreButton.textContent="Show details";
+    showMoreButton.setAttribute("data-index", task.id);
 
     thisTaskDiv.appendChild(customCheckbox);
     thisTaskDiv.appendChild(titleParag);
     thisTaskDiv.appendChild(dateParag);
+    thisTaskDiv.appendChild(showMoreButton);
 
     tasksDiv.appendChild(thisTaskDiv);
     paintPriority(task.priority, thisTaskDiv);
+
+    const moreContent = showMoreContent(task);
+    thisTaskDiv.appendChild(moreContent);
+
+}
+
+function showMoreContent(task){
+    const moreContent = document.createElement("div");
+    moreContent.classList.add("more-content");
+    //task description
+    const taskDescription = makeP("display-task", "description-extra", task.description);
+    //due date
+    let date = format(parseISO(task.date), 'dd MMM');
+    const dateParag= makeP("display-task", "display-task-date", "Due date: " + date);
+    
+    //date task added
+    const addedDate = makeP("display-task", "display-extra-added-date", "Task added on " + format(new Date(), 'dd MMM'));
+
+    moreContent.appendChild(taskDescription);
+    moreContent.appendChild(dateParag);
+    moreContent.appendChild(addedDate);
+
+    return moreContent;
 }
 
 function displayAllTasks(taskArray){
@@ -79,9 +113,22 @@ function updateTasks(taskArray){
     if (taskArray.length>0) displayAllTasks(taskArray);
 }
 
+
 function showTaskDiv(){
     const mainDiv= document.querySelector("#main-app-div");
     mainDiv.style.display="block";
 }
 
-export {makeTask, displayTask, showTaskDiv, updateTasks};
+function openTaskDetails(){
+    console.log("details");
+    let contentDiv = this.parentElement.lastChild;
+
+    if (!contentDiv.style.height || contentDiv.style.height == "0px"){
+        contentDiv.style.height = "100px";
+    } 
+    else {
+        contentDiv.style.height = "0px";
+    }
+}
+
+export {makeTask, displayTask, showTaskDiv, updateTasks, openTaskDetails, exampleTask};

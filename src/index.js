@@ -1,7 +1,7 @@
 import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
         openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
-import {makeTask, showTaskDiv, updateTasks } from './modules/task';
+import {makeTask, showTaskDiv, updateTasks, openTaskDetails } from './modules/task';
 import { displayProject, getProject, makeProject, saveProject} from './modules/projects';
 
 
@@ -16,6 +16,7 @@ const Buttons =(function(){
     const submitProjectButton = document.querySelector("#submit-project");
     const cancelProjectButton = document.querySelector("#cancel-project");
    
+    let showMoreButtons = document.querySelectorAll(".collapsible");
     let projectsButtons = document.querySelectorAll(".display-project-button");
     let workingProject;
     
@@ -24,6 +25,7 @@ const Buttons =(function(){
     newEntryButton.addEventListener("click", openNewEntryForm);
     newProjectButton.addEventListener("click", openNewProjectForm);
     projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
+    showMoreButtons.forEach(showMoreBtn => showMoreBtn.addEventListener("click", openTaskDetails))
     submitEntryButton.addEventListener("click", addNewEntry); 
     cancelEntryButton.addEventListener("click", () => {
         closeNewEntryForm();
@@ -35,10 +37,16 @@ const Buttons =(function(){
     });
 
 
-    function updateButtons(){
+    function updateProjectButtons(){
         projectsButtons = document.querySelectorAll(".display-project-button");
         projectsButtons.forEach(projBtn => projBtn.removeEventListener("click", openProject));
         projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
+    }
+
+    function updateTaskButtons(){
+        showMoreButtons = document.querySelectorAll(".collapsible");
+        showMoreButtons.forEach(showMoreBtn => showMoreBtn.removeEventListener("click", openTaskDetails))
+        showMoreButtons.forEach(showMoreBtn => showMoreBtn.addEventListener("click", openTaskDetails))
     }
 
     function addProject(){
@@ -47,28 +55,26 @@ const Buttons =(function(){
         closeNewProjectForm();
         clearNewProjectForm();
         displayProject(project);
-        updateButtons();            
+        updateProjectButtons();       
     }
 
     function openProject(){
         showTaskDiv();
         let project = getProject(this.dataset.index);
         workingProject = project;
-        updateTasks(project.tasks);    
+        updateTasks(project.tasks);
+        updateTaskButtons();    
     }
 
     function addNewEntry(){
-        console.log(`aqui ${workingProject}`);
         let task = makeTask(workingProject.tasks.length);
         workingProject.addTaskToProject(task);
         closeNewEntryForm();
         clearNewEntryForm(); 
         updateTasks(workingProject.tasks);
+        updateTaskButtons();
+
     }
-
-    
-
-
     
     
 })();

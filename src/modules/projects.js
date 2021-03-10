@@ -30,6 +30,12 @@ function makeProject(){
 function initializeProjects(){
     allProjects=[];
 }
+function defaultProject(task){
+    const project = projectFactory("Default Project", "Default Project to keep your tasks");
+    saveProject(project);
+    displayProject(project);
+    addTask(project, task);
+}
 
 function saveProject(project){
     allProjects.push(project);
@@ -54,4 +60,4 @@ function displayProject(project){
     btn.setAttribute("data-index", project.id);
     projDiv.appendChild(btn);
 }
-export{makeProject, displayProject, addTask, initializeProjects, saveProject, getProject}
+export{makeProject, displayProject, addTask, initializeProjects, saveProject, getProject, defaultProject}

@@ -1,11 +1,13 @@
 import { closeNewEntryForm, closeNewProjectForm, makeNewEntryForm, makeNewProjectForm } from "./form";
-import {initializeProjects, saveProject} from './projects'
+import {defaultProject, initializeProjects, makeProject, saveProject} from './projects'
+import { exampleTask } from "./task";
 
 function loadPage(){
     const mainDiv=document.querySelector("#main-app-div");
     const projectsDiv = document.querySelector("#projects-div");
     const entryForm = makeNewEntryForm();
     const projectForm = makeNewProjectForm();
+
 
     mainDiv.appendChild(entryForm);
     projectsDiv.appendChild(projectForm);
@@ -15,7 +17,11 @@ function loadPage(){
     
     //inicialize variables
     initializeProjects();
-    saveProject();
+
+
+    //default project
+    let task = exampleTask();
+    defaultProject(task);
 }
 
 export{loadPage};
