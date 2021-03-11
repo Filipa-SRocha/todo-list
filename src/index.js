@@ -1,7 +1,7 @@
 import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
         openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
-import {makeTask, showTaskDiv, updateTasks, openTaskDetails } from './modules/task';
+import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm } from './modules/task';
 import { displayProject, getProject, makeProject, removeTask, saveProject} from './modules/projects';
 
 
@@ -16,7 +16,7 @@ const Buttons =(function(){
     const submitProjectButton = document.querySelector("#submit-project");
     const cancelProjectButton = document.querySelector("#cancel-project");
     let removeTaskButtons = document.querySelectorAll(".del-task-btn");
-   
+    let editTaskButtons = document.querySelectorAll(".edit-task-btn");
     let showMoreButtons = document.querySelectorAll(".collapsible");
     let projectsButtons = document.querySelectorAll(".display-project-button");
     let workingProject;
@@ -25,14 +25,17 @@ const Buttons =(function(){
     submitProjectButton.addEventListener("click", addProject);
     newEntryButton.addEventListener("click", openNewEntryForm);
     newProjectButton.addEventListener("click", openNewProjectForm);
+    editTaskButtons.forEach(editBtn => editBtn.addEventListener("click", editTask));
     projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
     showMoreButtons.forEach(showMoreBtn => showMoreBtn.addEventListener("click", openTaskDetails))
     //removeTaskButtons.forEach(removeBtn => removeBtn.addEventListener("click", removeTask));
     submitEntryButton.addEventListener("click", addNewEntry); 
+
     cancelEntryButton.addEventListener("click", () => {
         closeNewEntryForm();
         clearNewEntryForm();
     });
+    
     cancelProjectButton.addEventListener("click", ()=>{
         closeNewProjectForm();
         clearNewProjectForm();
@@ -50,10 +53,13 @@ const Buttons =(function(){
     function updateTaskButtons(){
         removeTaskButtons = document.querySelectorAll(".del-task-btn");
         showMoreButtons = document.querySelectorAll(".collapsible");
+        editTaskButtons = document.querySelectorAll(".edit-task-btn");
 
+        editTaskButtons.forEach(editBtn => editBtn.removeEventListener("click", editTask));
         removeTaskButtons.forEach(removeBtn => removeBtn.removeEventListener("click", removeTask));
         removeTaskButtons.forEach(removeBtn => removeBtn.addEventListener("click", removeEntry));  
 
+        editTaskButtons.forEach(editBtn => editBtn.addEventListener("click", editTask));
         showMoreButtons.forEach(showMoreBtn => showMoreBtn.removeEventListener("click", openTaskDetails))
         showMoreButtons.forEach(showMoreBtn => showMoreBtn.addEventListener("click", openTaskDetails))
     }
@@ -85,12 +91,35 @@ const Buttons =(function(){
 
     }
 
-
     function removeEntry() {
         removeTask(workingProject, workingProject.tasks[this.dataset.index])
         updateTasks(workingProject.tasks) 
-        //updateTaskButtons();
+        updateTaskButtons();
     }
+
+    function editTask(){
+        openNewEntryForm();
+        let thisTask=workingProject.tasks[this.dataset.index];
+        console.log(workingProject);
+        populateForm(thisTask);
+        submitEntryButton.removeEventListener("click", addNewEntry);
+        submitEntryButton.addEventListener("click", changeTask); 
+
+        function changeTask(){
+            let index= thisTask.id; 
+            let newTask= makeTask(index);
+            workingProject.tasks.splice(index, 1, newTask);
+            updateTasks(workingProject.tasks);
+            closeNewEntryForm();
+            clearNewEntryForm();
+            updateTaskButtons();
+            submitEntryButton.removeEventListener("click", changeTask); 
+            submitEntryButton.addEventListener("click", addNewEntry);
+        }
+    }
+
+    
+
     
     
 })();

@@ -9,8 +9,11 @@ function loadPage(){
     const projectForm = makeNewProjectForm();
 
 
+
     mainDiv.appendChild(entryForm);
+
     projectsDiv.appendChild(projectForm);
+
 
     closeNewEntryForm();
     closeNewProjectForm();

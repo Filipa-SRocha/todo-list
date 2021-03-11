@@ -17,6 +17,14 @@ function makeTask(index){
     return task;
 }
 
+function populateForm(task){
+    document.querySelector("#input-title").value = task.title;
+    document.querySelector("#input-description").value = task.description;
+    document.querySelector("#input-date").value = task.date;
+    document.querySelector("#input-priority").value = task.priority;
+    const index= task.id;
+}
+
 function exampleTask(){
     const description ="Go to the Odin Project and chose a path to get your web dev career started";
     const exTask = taskFactory("Finish the Odin Project", description, "2021-03-09", "high", 0);
@@ -29,6 +37,15 @@ function makeP(pclass, id ,text){
     paragraph.textContent = text;
 
     return paragraph;
+}
+
+function makeBtn(className, text, index){
+    const btn = document.createElement("button");
+    btn.classList.add(className);
+    btn.textContent=text;
+    btn.setAttribute("data-index", index);
+
+    return btn;
 }
 
 function makeCheckbox(index){
@@ -71,19 +88,16 @@ function displayTask(task){
     const titleParag = makeP("display-task", "display-task-title",task.title);
     
     //button for collapsible details div
-    const showMoreButton = document.createElement("button");
-    showMoreButton.classList.add("collapsible");
-    showMoreButton.textContent="Show details";
-    showMoreButton.setAttribute("data-index", task.id);
+    const showMoreButton = makeBtn("collapsible", "Show Details", task.id);
     
     //collapsible div content
     const moreContent = showMoreContent(task);
 
     //delete task button
-    const delTaskBtn = document.createElement("button");
-    delTaskBtn.classList.add("del-task-btn");
-    delTaskBtn.textContent = "X";
-    delTaskBtn.setAttribute("data-index", task.id);
+    const delTaskBtn = makeBtn("del-task-btn", "X", task.id);
+
+    //edit task button
+    const editTaskBtn = makeBtn("edit-task-btn", "edit", task.id);
 
     //change task color in relation to priority
     paintPriority(task.priority, thisTaskDiv);
@@ -94,6 +108,7 @@ function displayTask(task){
     thisTaskDiv.appendChild(dateParag);
     thisTaskDiv.appendChild(showMoreButton);
     thisTaskDiv.appendChild(delTaskBtn);
+    thisTaskDiv.appendChild(editTaskBtn);
     thisTaskDiv.appendChild(moreContent); //last child
     
 
@@ -148,4 +163,4 @@ function openTaskDetails(){
     }
 }
 
-export {makeTask, displayTask, showTaskDiv, updateTasks, openTaskDetails, exampleTask};
+export {makeTask, displayTask, showTaskDiv, updateTasks, openTaskDetails, exampleTask, populateForm};

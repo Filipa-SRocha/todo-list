@@ -10,7 +10,7 @@ const projectFactory = (title, description) =>{
     }
 
     function removeTaskFromProject(task){
-        tasks.splice(task.id, task.id+1);
+        tasks.splice(task.id, 1);
     }
 
     return {title,

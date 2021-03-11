@@ -71,6 +71,7 @@ function makeNewEntryForm(){
     return newEntryDiv;
 }
 
+
 function makeNewProjectForm(){
     const projectDiv= document.createElement("div");
     projectDiv.id="new-project-form-div";
