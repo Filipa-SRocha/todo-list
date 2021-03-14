@@ -1,7 +1,7 @@
 import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
         openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
-import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm } from './modules/task';
+import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm, paintPriority, taskIsDone } from './modules/task';
 import { displayProject, getProject, makeProject, removeTask, saveProject} from './modules/projects';
 
 
@@ -15,6 +15,8 @@ const Buttons =(function(){
     const cancelEntryButton = document.querySelector("#new-entry-cancel-button");
     const submitProjectButton = document.querySelector("#submit-project");
     const cancelProjectButton = document.querySelector("#cancel-project");
+
+    let checkboxes = document.querySelectorAll(".visually-hidden-checkbox");
     let removeTaskButtons = document.querySelectorAll(".del-task-btn");
     let editTaskButtons = document.querySelectorAll(".edit-task-btn");
     let showMoreButtons = document.querySelectorAll(".collapsible");
@@ -41,6 +43,25 @@ const Buttons =(function(){
         clearNewProjectForm();
     });
 
+    checkboxes.forEach(box => box.addEventListener("click", testCheck));
+
+    function testCheck(){
+
+        let thisDiv = this.parentElement.parentElement;
+        let index = thisDiv.dataset.taskDivIndex;
+        let thisTask = workingProject.tasks[index];
+        
+
+        if (this.checked){
+            taskIsDone(thisTask, thisDiv);
+            thisTask.done=true;
+        } 
+        else{
+            thisDiv.querySelector("p").style.textDecoration = "none";
+            paintPriority(thisTask.priority, thisDiv);
+            thisTask.done=false;
+        }
+    }
 
     function updateProjectButtons(){
        
@@ -54,6 +75,9 @@ const Buttons =(function(){
         removeTaskButtons = document.querySelectorAll(".del-task-btn");
         showMoreButtons = document.querySelectorAll(".collapsible");
         editTaskButtons = document.querySelectorAll(".edit-task-btn");
+        checkboxes = document.querySelectorAll(".visually-hidden-checkbox");
+
+        checkboxes.forEach(box => box.addEventListener("click", testCheck));
 
         editTaskButtons.forEach(editBtn => editBtn.removeEventListener("click", editTask));
         removeTaskButtons.forEach(removeBtn => removeBtn.removeEventListener("click", removeTask));

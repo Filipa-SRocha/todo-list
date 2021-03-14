@@ -1,8 +1,9 @@
 import{format, parseISO}  from 'date-fns';
 //task factory
-const taskFactory = (title, description, date, priority, id) =>{
+const taskFactory = (title, description, date, priority, id, done) => {
+    
 
-    return {title, description, date, priority, id}; 
+    return {title, description, date, priority, id, done}; 
 };
 
 
@@ -12,7 +13,8 @@ function makeTask(index){
     const date= document.querySelector("#input-date").value;
     const priority = document.querySelector("#input-priority").value;
     const id= index;
-    const task= taskFactory(title, description, date, priority, id);
+    let done = false;
+    const task= taskFactory(title, description, date, priority, id, done);
 
     return task;
 }
@@ -48,7 +50,7 @@ function makeBtn(className, text, index){
     return btn;
 }
 
-function makeCheckbox(index){
+function makeCheckbox(index, task){
     const customCheckbox = document.createElement("div");
     const label= document.createElement("label");
     label.classList.add("checkbox-container");
@@ -59,6 +61,7 @@ function makeCheckbox(index){
     checkButton.type="checkbox";
     checkButton.id="check"+index;
     checkButton.classList.add("visually-hidden-checkbox");
+    checkButton.checked = task.done;
 
     customCheckbox.classList.add("custom-checkbox");
 
@@ -69,12 +72,16 @@ function makeCheckbox(index){
 }
 
 function paintPriority(priorityLevel, divToPaint){
-    if (priorityLevel == "medium") divToPaint.style.background = "rgba(255, 205, 5, 0.44)";
-    else if (priorityLevel == "high") divToPaint.style.background = "rgba(248, 6, 6, 0.44)";
+    if (priorityLevel == "medium") divToPaint.style.background = "rgba(255, 205, 5, 0.20)";
+    else if (priorityLevel == "high") divToPaint.style.background = "rgba(248, 6, 6, 0.20)";
+    else if (priorityLevel == "low") divToPaint.style.background = "rgba(5, 5, 5, 0.10)"
+    else if (priorityLevel == "done") divToPaint.style.background = "white";
 }
 
 function displayTask(task){
     const tasksDiv=document.querySelector("#tasks-div");
+    console.log("aqui");
+    console.log(task.checked);
 
     //this task Div
     const thisTaskDiv=document.createElement("div");
@@ -82,25 +89,30 @@ function displayTask(task){
     thisTaskDiv.classList.add("one-task");
 
     // task info
-    const customCheckbox = makeCheckbox(task.id);
+    const customCheckbox = makeCheckbox(task.id, task);
     let date = format(parseISO(task.date), 'dd MMM');
     const dateParag= makeP("display-task", "display-task-date", date);
     const titleParag = makeP("display-task", "display-task-title",task.title);
     
     //button for collapsible details div
     const showMoreButton = makeBtn("collapsible", "Show Details", task.id);
+    showMoreButton.innerHTML= '<i class="material-icons">arrow_drop_down</i>';
     
     //collapsible div content
     const moreContent = showMoreContent(task);
 
     //delete task button
     const delTaskBtn = makeBtn("del-task-btn", "X", task.id);
+    delTaskBtn.innerHTML='<i class="material-icons md-18">delete_forever</i>';
 
     //edit task button
     const editTaskBtn = makeBtn("edit-task-btn", "edit", task.id);
+    editTaskBtn.innerHTML= '<i class="material-icons md-18">edit</i>';
 
     //change task color in relation to priority
-    paintPriority(task.priority, thisTaskDiv);
+    
+
+    console.log(customCheckbox.childNodes[1].checked);
 
 
     thisTaskDiv.appendChild(customCheckbox);
@@ -111,8 +123,16 @@ function displayTask(task){
     thisTaskDiv.appendChild(editTaskBtn);
     thisTaskDiv.appendChild(moreContent); //last child
     
+    if (task.done) taskIsDone(task, thisTaskDiv);
+    else paintPriority(task.priority, thisTaskDiv);
 
     tasksDiv.appendChild(thisTaskDiv);
+    
+}
+
+function taskIsDone(task, thisDiv){
+    thisDiv.querySelector("p").style.textDecoration = "line-through";
+    paintPriority("done", thisDiv);
 }
 
 function showMoreContent(task){
@@ -145,7 +165,6 @@ function updateTasks(taskArray){
     if (taskArray.length>0) displayAllTasks(taskArray);
 }
 
-
 function showTaskDiv(){
     const mainDiv= document.querySelector("#main-app-div");
     mainDiv.style.display="block";
@@ -163,4 +182,6 @@ function openTaskDetails(){
     }
 }
 
-export {makeTask, displayTask, showTaskDiv, updateTasks, openTaskDetails, exampleTask, populateForm};
+export {makeTask, displayTask, showTaskDiv, 
+        updateTasks, openTaskDetails, exampleTask, 
+        populateForm, paintPriority, taskIsDone};
