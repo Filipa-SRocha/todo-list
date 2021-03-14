@@ -3,6 +3,11 @@ body{
     margin: 0;
 }
 
+button:focus{
+    border: none;
+    outline: none;
+}
+
 /*    ----   forms    -------  */
 #new-entry-div{
     background: rgb(255, 255, 159);
@@ -23,7 +28,10 @@ input{
 /*---------------display tasks-------------------*/
 
 .one-task{
-    margin: 3px;
+    margin-top: 10px;
+    margin-left: 30px;
+    border-radius: 15px;
+    width: 600px;
 }
 .more-content{
     overflow: hidden;
@@ -44,7 +52,7 @@ input{
 .checkbox-container{
     cursor: pointer;
     display: inline-block;
-    margin: 2px;
+    margin: 10px;
 }
 .custom-checkbox{
     position: relative;
@@ -80,6 +88,35 @@ input{
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.del-task-btn, .edit-task-btn, .collapsible{
+    background: transparent;
+    padding: 0px;
+    border: none;
+}
+
+.material-icons.md-18 { 
+    font-size: 18px; 
+}
+
+.del-task-btn, .edit-task-btn{
+    display:none;
+}
+
+.collapsible{
+    position: relative;
+    top:10px;
+}
+
+.one-task:hover .del-task-btn{
+    display: inline-block;
+}
+.one-task:hover .edit-task-btn{
+    display: inline-block;
+} 
+
+
+
 p{
     width: fit-content;
     display: inline-block;
