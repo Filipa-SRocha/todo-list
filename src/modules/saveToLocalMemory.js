@@ -1,5 +1,5 @@
 import {exampleTask} from './task';
-import {defaultProject, displayAllProjects, displayProject, parsedProject, saveProject} from './projects';
+import {defaultProject, displayAllProjects, parsedProject, saveProject} from './projects';
 
 function saveToMemory(project){
     let objectString = turnToString(project);

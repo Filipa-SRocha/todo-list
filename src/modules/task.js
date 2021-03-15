@@ -72,7 +72,7 @@ function makeCheckbox(index, task){
 }
 
 function paintPriority(priorityLevel, divToPaint){
-    if (priorityLevel == "medium") divToPaint.style.background = "rgba(255, 205, 5, 0.20)";
+    if (priorityLevel == "medium") divToPaint.style.background = "rgba(255, 205, 5, 0.30)";
     else if (priorityLevel == "high") divToPaint.style.background = "rgba(248, 6, 6, 0.20)";
     else if (priorityLevel == "low") divToPaint.style.background = "rgba(5, 5, 5, 0.10)"
     else if (priorityLevel == "done") divToPaint.style.background = "white";
@@ -110,10 +110,6 @@ function displayTask(task){
     editTaskBtn.innerHTML= '<i class="material-icons md-18">edit</i>';
 
     //change task color in relation to priority
-    
-
-    console.log(customCheckbox.childNodes[1].checked);
-
 
     thisTaskDiv.appendChild(customCheckbox);
     thisTaskDiv.appendChild(titleParag);

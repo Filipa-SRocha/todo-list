@@ -1,4 +1,3 @@
-import { openNewProjectForm } from "./form";
 let allProjects;
 
 const projectFactory = (title, description) =>{

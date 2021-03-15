@@ -5,7 +5,7 @@ import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm, paint
 import { displayProject, getProject, makeProject, removeTask, saveProject} from './modules/projects';
 import {saveToMemory, clearMemory} from './modules/saveToLocalMemory';
 
-clearMemory();
+//clearMemory();
 loadPage();
 
 
