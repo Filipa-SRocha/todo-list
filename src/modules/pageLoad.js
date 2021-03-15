@@ -1,6 +1,6 @@
 import { closeNewEntryForm, closeNewProjectForm, makeNewEntryForm, makeNewProjectForm } from "./form";
-import {defaultProject, initializeProjects} from './projects'
-import { exampleTask } from "./task";
+import {initializeProjects} from './saveToLocalMemory';
+import {initializeAllProjects} from './projects';
 
 function loadPage(){
     const mainDiv=document.querySelector("#main-app-div");
@@ -19,12 +19,11 @@ function loadPage(){
     closeNewProjectForm();
     
     //inicialize variables
+    initializeAllProjects();
     initializeProjects();
 
 
-    //default project
-    let task = exampleTask();
-    defaultProject(task);
+
 }
 
 export{loadPage};

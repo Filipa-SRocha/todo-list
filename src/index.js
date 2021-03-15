@@ -3,9 +3,12 @@ import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
 import { loadPage } from './modules/pageLoad';
 import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm, paintPriority, taskIsDone } from './modules/task';
 import { displayProject, getProject, makeProject, removeTask, saveProject} from './modules/projects';
+import {saveToMemory, clearMemory} from './modules/saveToLocalMemory';
 
-
+clearMemory();
 loadPage();
+
+
 
 
 const Buttons =(function(){
@@ -91,6 +94,7 @@ const Buttons =(function(){
     function addProject(){
         let project= makeProject();
         saveProject(project);
+        saveToMemory(project);
         closeNewProjectForm();
         clearNewProjectForm();
         displayProject(project);
@@ -112,6 +116,7 @@ const Buttons =(function(){
         clearNewEntryForm(); 
         updateTasks(workingProject.tasks);
         updateTaskButtons();
+        saveToMemory(workingProject);
 
     }
 
@@ -119,12 +124,12 @@ const Buttons =(function(){
         removeTask(workingProject, workingProject.tasks[this.dataset.index])
         updateTasks(workingProject.tasks) 
         updateTaskButtons();
+        saveToMemory(workingProject);
     }
 
     function editTask(){
         openNewEntryForm();
         let thisTask=workingProject.tasks[this.dataset.index];
-        console.log(workingProject);
         populateForm(thisTask);
         submitEntryButton.removeEventListener("click", addNewEntry);
         submitEntryButton.addEventListener("click", changeTask); 
@@ -137,6 +142,7 @@ const Buttons =(function(){
             closeNewEntryForm();
             clearNewEntryForm();
             updateTaskButtons();
+            saveToMemory(workingProject);
             submitEntryButton.removeEventListener("click", changeTask); 
             submitEntryButton.addEventListener("click", addNewEntry);
         }

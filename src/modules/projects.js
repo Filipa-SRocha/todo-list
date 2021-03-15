@@ -22,7 +22,19 @@ const projectFactory = (title, description) =>{
     }
 }
 
+function initializeAllProjects(){
+    allProjects=[];
+}
 
+function parsedProject(parsedTitle, parsedDescription, parsedTasks){
+    const title = parsedTitle;
+    const description = parsedDescription;
+
+    const project = projectFactory(title, description);
+    parsedTasks.forEach(task => project.addTaskToProject(task));
+
+    return project;
+}
 
 function makeProject(){
     const title = document.querySelector("#input-project-name").value;
@@ -32,14 +44,12 @@ function makeProject(){
 
     return project;
 }
-function initializeProjects(){
-    allProjects=[];
-}
+
 function defaultProject(task){
     const project = projectFactory("Default Project", "Default Project to keep your tasks");
     saveProject(project);
-    displayProject(project);
     addTask(project, task);
+    return project;
 }
 
 function saveProject(project){
@@ -69,6 +79,11 @@ function displayProject(project){
     btn.setAttribute("data-index", project.id);
     projDiv.appendChild(btn);
 }
+
+function displayAllProjects(){
+    allProjects.forEach(proj => displayProject(proj));
+}
+
 export{makeProject, displayProject, addTask, 
-        initializeProjects, saveProject, getProject, 
-        defaultProject, removeTask}
+        initializeAllProjects, saveProject, getProject, 
+        defaultProject, removeTask, parsedProject, displayAllProjects}
