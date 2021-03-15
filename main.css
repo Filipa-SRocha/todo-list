@@ -8,6 +8,13 @@ button:focus{
     outline: none;
 }
 
+h1{
+    text-align: center;
+    font-family: 'Syne Mono', monospace;
+    text-decoration: underline;
+    text-decoration-color: rgba(12, 143, 88, 0.726);
+}
+
 /*    ----   forms    -------  */
 #new-entry-div{
     background: rgb(255, 255, 159);
@@ -32,6 +39,7 @@ input{
     margin-left: 30px;
     border-radius: 15px;
     width: 600px;
+
 }
 .more-content{
     overflow: hidden;
@@ -93,6 +101,7 @@ input{
     background: transparent;
     padding: 0px;
     border: none;
+    display: relative;
 }
 
 .material-icons.md-18 { 
@@ -100,7 +109,7 @@ input{
 }
 
 .del-task-btn, .edit-task-btn{
-    display:none;
+    display: none;
 }
 
 .collapsible{
@@ -110,9 +119,20 @@ input{
 
 .one-task:hover .del-task-btn{
     display: inline-block;
+    position: absolute;
+    left:800px;
+    margin:1px;
 }
+.del-task-btn:hover, .edit-task-btn:hover{
+    border: 1px solid transparent;
+ 
+}
+
 .one-task:hover .edit-task-btn{
     display: inline-block;
+    position: absolute;
+    left: 770px;
+    margin: 30px;
 } 
 
 
@@ -143,21 +163,52 @@ p{
     background: rgb(255, 255, 255);
 }
 
+
+/*---------- display projects ----------------*/
 #projects-div{
     grid-area: project;
     background: rgba(12, 143, 88, 0.726);
+    border-radius: 10px;
 }
 
 .display-project-button{
     display: block;
     height: 2em;
     width: 9em;
+    margin: 5px auto;
 }
+#projects-title{
+    font-family: 'Syne Mono', monospace;
+    text-align: center;
+    color: rgba(7, 87, 54, 0.884);
+}
+
 #new-project{
-    margin: 10px;
+    display: block;
+    height: 35px;
+    width: 35px;
+    font-size:x-large;
+    border-radius: 50%;
+    padding: 3px;
+    margin: 30px auto;
+    border: 1px solid  rgba(7, 87, 54, 0.884);
 }
 
 #main-app-div{
     display:none;
     grid-area: main;
+}
+
+#new-entry{
+    margin-top: 10px;
+    margin-left: 30px;
+    border-radius: 15px;
+    width: 600px;
+    height: 40px;
+    border: none;
+    background: rgb(226, 225, 225);
+    font-size: large;
+}
+#new-entry:hover{
+    background: rgb(201, 199, 199);
 }
