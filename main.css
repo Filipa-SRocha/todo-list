@@ -42,6 +42,23 @@ input{
     display:inline-block;
  
 }
+
+#new-project-form-div{
+    margin: 5px 10px;
+}
+
+#new-project-form-div input{
+    margin-top: 2px;
+}
+
+#input-warning{
+    font-size: small;
+    color:rgb(126, 39, 68);
+}
+
+#new-project-form-div button{
+    margin-right: 5px;
+}
 /*---------------display tasks-------------------*/
 
 .one-task{
