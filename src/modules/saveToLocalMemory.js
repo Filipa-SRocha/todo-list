@@ -3,7 +3,6 @@ import {defaultProject, displayAllProjects, parsedProject, saveProject} from './
 
 function saveToMemory(project){
     let objectString = turnToString(project);
-
     localStorage.setItem(project.title, objectString);
 }
 

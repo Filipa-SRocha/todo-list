@@ -15,6 +15,10 @@ h1{
     text-decoration-color: rgba(12, 143, 88, 0.726);
 }
 
+p{
+    font-size:medium;
+}
+
 /*    ----   forms    -------  */
 #new-entry-div{
     margin: 20px;
@@ -78,11 +82,10 @@ input{
 
 
 .visually-hidden-checkbox{
-    opacity: 0.5;
+    opacity: 0;
     display: inline-block;
     height: 0px;
 }
-
 
 .checkbox-container{
     cursor: pointer;

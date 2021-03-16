@@ -2,10 +2,10 @@ import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
         openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
 import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm, paintPriority, taskIsDone } from './modules/task';
-import { checkTitle, displayAllProjects, displayProject, getProject, makeProject, removeProject, removeTask, saveProject} from './modules/projects';
+import { checkTitle, displayProject, getProject, makeProject, removeProject, removeTask, saveProject} from './modules/projects';
 import {saveToMemory, clearMemory, deleteFromLocalStorage} from './modules/saveToLocalMemory';
 
-clearMemory();
+//clearMemory();
 loadPage();
 
 

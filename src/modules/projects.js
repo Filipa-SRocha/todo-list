@@ -86,16 +86,14 @@ function checkTitle(){
 
 function makeProject(){
     let title = document.querySelector("#input-project-name").value;
-
     const description = document.querySelector("#input-project-description").value;
-
     const project = projectFactory(title, description);
 
     return project;
 }
 
 function defaultProject(task){
-    const project = projectFactory("Default Project", "Default Project to keep your tasks");
+    const project = projectFactory("My Project", "Default Project to keep your tasks");
     saveProject(project);
     addTask(project, task);
     return project;
@@ -119,7 +117,7 @@ function getProject(index){
 
 function displayProject(project){
     const allProjDiv = document.querySelector("#all-projects-display");
-    
+
     const projDiv = document.createElement("div"); 
     projDiv.id="one-project";
 

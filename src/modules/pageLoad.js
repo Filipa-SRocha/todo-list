@@ -8,10 +8,8 @@ function loadPage(){
     const entryForm = makeNewEntryForm();
     const projectForm = makeNewProjectForm();
 
-
-
+    
     mainDiv.appendChild(entryForm);
-
     projectsDiv.appendChild(projectForm);
 
 
@@ -21,9 +19,6 @@ function loadPage(){
     //inicialize variables
     initializeAllProjects();
     initializeProjects();
-
-
-
 }
 
 export{loadPage};

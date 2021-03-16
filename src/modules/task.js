@@ -7,41 +7,6 @@ const taskFactory = (title, description, date, priority, id, done) => {
     return {title, description, date, priority, id, done}; 
 };
 
-
-function makeTask(index){
-    const title = document.querySelector("#input-title").value;
-    const description= document.querySelector("#input-description").value;
-    const date= document.querySelector("#input-date").value;
-    const priority = document.querySelector("#input-priority").value;
-    const id= index;
-    let done = false;
-    const task= taskFactory(title, description, date, priority, id, done);
-
-    return task;
-}
-
-function populateForm(task){
-    document.querySelector("#input-title").value = task.title;
-    document.querySelector("#input-description").value = task.description;
-    document.querySelector("#input-date").value = task.date;
-    document.querySelector("#input-priority").value = task.priority;
-    const index= task.id;
-}
-
-function exampleTask(){
-    const description ="Go to the Odin Project and chose a path to get your web dev career started";
-    const exTask = taskFactory("Finish the Odin Project", description, "2021-03-09", "high", 0);
-    return exTask;
-}
-
-function makeP(pclass, id ,text){
-    const paragraph = document.createElement("p");
-    paragraph.class = pclass;
-    paragraph.textContent = text;
-
-    return paragraph;
-}
-
 function makeBtn(className, text, index){
     const btn = document.createElement("button");
     btn.classList.add(className);
@@ -72,11 +37,45 @@ function makeCheckbox(index, task){
     return label;
 }
 
+function makeP(pclass, id ,text){
+    const paragraph = document.createElement("p");
+    paragraph.class = pclass;
+    paragraph.textContent = text;
+
+    return paragraph;
+}
+
 function paintPriority(priorityLevel, divToPaint){
     if (priorityLevel == "medium") divToPaint.style.background = "rgba(255, 205, 5, 0.30)";
     else if (priorityLevel == "high") divToPaint.style.background = "rgba(248, 6, 6, 0.20)";
     else if (priorityLevel == "low") divToPaint.style.background = "rgba(5, 5, 5, 0.10)"
     else if (priorityLevel == "done") divToPaint.style.background = "white";
+}
+
+function makeTask(index){
+    const title = document.querySelector("#input-title").value;
+    const description= document.querySelector("#input-description").value;
+    const date= document.querySelector("#input-date").value;
+    const priority = document.querySelector("#input-priority").value;
+    const id= index;
+    let done = false;
+    const task= taskFactory(title, description, date, priority, id, done);
+
+    return task;
+}
+
+function populateForm(task){
+    document.querySelector("#input-title").value = task.title;
+    document.querySelector("#input-description").value = task.description;
+    document.querySelector("#input-date").value = task.date;
+    document.querySelector("#input-priority").value = task.priority;
+    const index= task.id;
+}
+
+function exampleTask(){
+    const description ="Go to the Odin Project and chose a path to get your web dev career started";
+    const exTask = taskFactory("Finish the Odin Project", description, "2021-03-09", "high", 0);
+    return exTask;
 }
 
 function displayTask(task){
