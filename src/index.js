@@ -2,10 +2,10 @@ import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
         openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
 import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm, paintPriority, taskIsDone } from './modules/task';
-import { displayAllProjects, displayProject, getProject, makeProject, removeProject, removeTask, saveProject} from './modules/projects';
+import { checkTitle, displayAllProjects, displayProject, getProject, makeProject, removeProject, removeTask, saveProject} from './modules/projects';
 import {saveToMemory, clearMemory, deleteFromLocalStorage} from './modules/saveToLocalMemory';
 
-//clearMemory();
+clearMemory();
 loadPage();
 
 
@@ -32,7 +32,10 @@ const Buttons =(function(){
     // event listeners
     submitProjectButton.addEventListener("click", addProject);
     newEntryButton.addEventListener("click", openNewEntryForm);
-    newProjectButton.addEventListener("click", openNewProjectForm);
+    newProjectButton.addEventListener("click", () => {
+        openNewProjectForm();
+        checkTitle();
+    });
     editTaskButtons.forEach(editBtn => editBtn.addEventListener("click", editTask));
     projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
     showMoreButtons.forEach(showMoreBtn => showMoreBtn.addEventListener("click", openTaskDetails))
@@ -116,6 +119,7 @@ const Buttons =(function(){
     }
 
     function addProject(){
+
         let project= makeProject();
         saveProject(project);
         saveToMemory(project);

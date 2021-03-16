@@ -75,21 +75,35 @@ function makeNewEntryForm(){
 
 
 function makeNewProjectForm(){
+    //project form div
     const projectDiv= document.createElement("div");
     projectDiv.id="new-project-form-div";
 
+    //name input
     const nameLabel = makeLabel("Project Name: ");
     const inputName = makeFormInput("input-project-name", "text");
+    
+    //warning for unvalidated names
+    const nameWarning = document.createElement("p");
+    nameWarning.id = "input-warning";
+    
+    // description input
     const descriptionLabel = makeLabel("Project Description: ");
     const inputDescription = makeFormInput("input-project-description", "text");
+    
+    //submit form button
     const submitButton = document.createElement("button");
     submitButton.id="submit-project";
     submitButton.textContent = "Submit";
+
+    // cancel form button
     const cancel = document.createElement("button");
     cancel.textContent = "Cancel";
     cancel.id = "cancel-project"; 
 
+    
     projectDiv.appendChild(nameLabel);
+    projectDiv.appendChild(nameWarning);
     projectDiv.appendChild(inputName);
     projectDiv.appendChild(descriptionLabel);
     projectDiv.appendChild(inputDescription);

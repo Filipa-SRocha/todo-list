@@ -42,8 +42,51 @@ function parsedProject(parsedTitle, parsedDescription, parsedTasks){
     return project;
 }
 
+function checkTitle(){
+    const warning = document.querySelector("#input-warning");
+    let titleInput = document.querySelector("#input-project-name");
+    let timeout = null;
+    const submit = document.querySelector("#submit-project");
+    submit.disabled = true;
+
+    titleInput.addEventListener("keyup", function(e){
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function(){
+
+            if(checkLength(titleInput.value) && checkDuplicate(titleInput.value))
+            {
+                submit.disabled = false;
+            }
+        
+        }, 1000);
+    });
+
+
+    function checkLength(title){
+        if (title.length<1){
+            warning.textContent = "Project name is too small!";
+            return 0;
+        }
+        return 1;
+    }
+
+    function checkDuplicate(title){
+        let noDuplicate = true;
+        allProjects.forEach(proj => {
+            if (proj.title == title) {
+                warning.textContent = "Name already exists!";
+                noDuplicate = false;
+            }
+        });
+        return noDuplicate;
+    }
+   
+}
+
 function makeProject(){
-    const title = document.querySelector("#input-project-name").value;
+    let title = document.querySelector("#input-project-name").value;
+
     const description = document.querySelector("#input-project-description").value;
 
     const project = projectFactory(title, description);
@@ -62,7 +105,6 @@ function saveProject(project){
     allProjects.push(project);
 }
 
-
 function addTask(project, task){
     project.addTaskToProject(task);
 }
@@ -74,7 +116,6 @@ function removeTask(project, task){
 function getProject(index){
     return allProjects[index];
 }
-
 
 function displayProject(project){
     const allProjDiv = document.querySelector("#all-projects-display");
@@ -105,4 +146,4 @@ function displayAllProjects(){
 
 export{makeProject, displayProject, addTask, 
         initializeAllProjects, saveProject, getProject, 
-        defaultProject, removeTask, parsedProject, displayAllProjects, removeProject}
+        defaultProject, removeTask, parsedProject, displayAllProjects, removeProject, checkTitle}
