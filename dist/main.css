@@ -17,8 +17,14 @@ h1{
 
 /*    ----   forms    -------  */
 #new-entry-div{
+    margin: 20px;
+    width: 600px;
     background: rgb(255, 255, 159);
     padding: 10px;
+}
+
+#new-entry-div label{
+    margin-left: 10px;
 }
 
 input{
@@ -29,9 +35,13 @@ input{
 
 #new-entry-submit-button{
     margin: 10px 10px;
-    display: block;
-}
+    display:inline-block;
 
+}
+#new-entry-cancel-button{
+    display:inline-block;
+ 
+}
 /*---------------display tasks-------------------*/
 
 .one-task{
@@ -170,12 +180,34 @@ p{
     background: rgba(12, 143, 88, 0.726);
     border-radius: 10px;
 }
+#one-project{
+    
+    margin: 5px auto;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
 
 .display-project-button{
-    display: block;
+    display: inline-block;
     height: 2em;
     width: 9em;
-    margin: 5px auto;
+}
+
+.project-button-delete{
+    display: inline-block;
+    background: transparent;
+    border:none;
+    visibility: hidden;
+}
+
+#one-project:hover .project-button-delete{
+    color: rgb(133, 77, 66);
+    visibility: visible;
+}
+
+.project-button-delete:hover{
+    font-size: large;
+    text-shadow: 1px 2px grey;
 }
 #projects-title{
     font-family: 'Syne Mono', monospace;

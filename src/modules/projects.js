@@ -25,6 +25,13 @@ function initializeAllProjects(){
     allProjects=[];
 }
 
+function removeProject(index){
+    allProjects.splice(index, 1);
+    allProjects.forEach(proj => {
+        if (proj.id>index) proj.id--;
+    });
+}
+
 function parsedProject(parsedTitle, parsedDescription, parsedTasks){
     const title = parsedTitle;
     const description = parsedDescription;
@@ -70,13 +77,26 @@ function getProject(index){
 
 
 function displayProject(project){
-    const projDiv = document.querySelector("#all-projects-display");
+    const allProjDiv = document.querySelector("#all-projects-display");
+    
+    const projDiv = document.createElement("div"); 
+    projDiv.id="one-project";
+
+    //delete button
+    const deleteBtn=document.createElement("button");
+    deleteBtn.classList.add("project-button-delete");
+    deleteBtn.textContent = "X";
+    
+    //proj button
     const btn = document.createElement("button");
     btn.classList.add("display-project-button");
-
     btn.textContent = project.title;
     btn.setAttribute("data-index", project.id);
+
+    projDiv.appendChild(deleteBtn);
     projDiv.appendChild(btn);
+
+    allProjDiv.appendChild(projDiv);
 }
 
 function displayAllProjects(){
@@ -85,4 +105,4 @@ function displayAllProjects(){
 
 export{makeProject, displayProject, addTask, 
         initializeAllProjects, saveProject, getProject, 
-        defaultProject, removeTask, parsedProject, displayAllProjects}
+        defaultProject, removeTask, parsedProject, displayAllProjects, removeProject}

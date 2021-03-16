@@ -2,8 +2,8 @@ import {openNewEntryForm, closeNewEntryForm, clearNewEntryForm,
         openNewProjectForm, closeNewProjectForm, clearNewProjectForm} from './modules/form';
 import { loadPage } from './modules/pageLoad';
 import {makeTask, showTaskDiv, updateTasks, openTaskDetails, populateForm, paintPriority, taskIsDone } from './modules/task';
-import { displayProject, getProject, makeProject, removeTask, saveProject} from './modules/projects';
-import {saveToMemory, clearMemory} from './modules/saveToLocalMemory';
+import { displayAllProjects, displayProject, getProject, makeProject, removeProject, removeTask, saveProject} from './modules/projects';
+import {saveToMemory, clearMemory, deleteFromLocalStorage} from './modules/saveToLocalMemory';
 
 //clearMemory();
 loadPage();
@@ -18,12 +18,15 @@ const Buttons =(function(){
     const cancelEntryButton = document.querySelector("#new-entry-cancel-button");
     const submitProjectButton = document.querySelector("#submit-project");
     const cancelProjectButton = document.querySelector("#cancel-project");
+    
 
     let checkboxes = document.querySelectorAll(".visually-hidden-checkbox");
     let removeTaskButtons = document.querySelectorAll(".del-task-btn");
     let editTaskButtons = document.querySelectorAll(".edit-task-btn");
     let showMoreButtons = document.querySelectorAll(".collapsible");
     let projectsButtons = document.querySelectorAll(".display-project-button");
+    let projectButtonDelete = document.querySelectorAll(".project-button-delete");
+
     let workingProject;
     
     // event listeners
@@ -35,6 +38,8 @@ const Buttons =(function(){
     showMoreButtons.forEach(showMoreBtn => showMoreBtn.addEventListener("click", openTaskDetails))
     //removeTaskButtons.forEach(removeBtn => removeBtn.addEventListener("click", removeTask));
     submitEntryButton.addEventListener("click", addNewEntry); 
+
+    projectButtonDelete.forEach(deleteBtn => deleteBtn.addEventListener("click", deleteProject));
 
     cancelEntryButton.addEventListener("click", () => {
         closeNewEntryForm();
@@ -48,6 +53,7 @@ const Buttons =(function(){
 
     checkboxes.forEach(box => box.addEventListener("click", testCheck));
 
+    
     function testCheck(){
 
         let thisDiv = this.parentElement.parentElement;
@@ -69,9 +75,27 @@ const Buttons =(function(){
     function updateProjectButtons(){
        
         projectsButtons = document.querySelectorAll(".display-project-button");
+        projectButtonDelete = document.querySelectorAll(".project-button-delete");
 
         projectsButtons.forEach(projBtn => projBtn.removeEventListener("click", openProject));
         projectsButtons.forEach(projBtn => projBtn.addEventListener("click", openProject));
+
+        projectButtonDelete.forEach(deleteBtn => deleteBtn.removeEventListener("click", deleteProject));
+        projectButtonDelete.forEach(deleteBtn => deleteBtn.addEventListener("click", deleteProject));        
+    }
+
+    function deleteProject(){
+        const index= this.parentElement.lastChild.dataset.index;
+
+        //apagar proj do local memory
+        deleteFromLocalStorage(getProject(index));
+
+        //apagar proj do all projects
+        removeProject(index);
+
+        //remove div proj button
+        this.parentElement.remove();
+
     }
 
     function updateTaskButtons(){
@@ -128,8 +152,8 @@ const Buttons =(function(){
     }
 
     function editTask(){
-        openNewEntryForm();
         let thisTask=workingProject.tasks[this.dataset.index];
+        openNewEntryForm();
         populateForm(thisTask);
         submitEntryButton.removeEventListener("click", addNewEntry);
         submitEntryButton.addEventListener("click", changeTask); 
@@ -147,10 +171,6 @@ const Buttons =(function(){
             submitEntryButton.addEventListener("click", addNewEntry);
         }
     }
-
-    
-
-    
     
 })();
 

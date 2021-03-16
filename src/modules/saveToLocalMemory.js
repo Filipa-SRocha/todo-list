@@ -4,7 +4,7 @@ import {defaultProject, displayAllProjects, parsedProject, saveProject} from './
 function saveToMemory(project){
     let objectString = turnToString(project);
 
-    localStorage.setItem(project.id, objectString);
+    localStorage.setItem(project.title, objectString);
 }
 
 function turnToString(project){
@@ -21,6 +21,9 @@ function clearMemory(){
     localStorage.clear();
 }
 
+function deleteFromLocalStorage(project){
+    localStorage.removeItem(project.title);
+}
 
 function initializeProjects(){
     if (localStorage.length<1){
@@ -36,4 +39,4 @@ function initializeProjects(){
     }
 }
 
-export{saveToMemory, initializeProjects, clearMemory};
+export{saveToMemory, initializeProjects, clearMemory, deleteFromLocalStorage};

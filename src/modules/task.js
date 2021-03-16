@@ -1,4 +1,5 @@
-import{format, parseISO}  from 'date-fns';
+import{format, parseISO, differenceInCalendarDays}  from 'date-fns';
+
 //task factory
 const taskFactory = (title, description, date, priority, id, done) => {
     
@@ -80,8 +81,6 @@ function paintPriority(priorityLevel, divToPaint){
 
 function displayTask(task){
     const tasksDiv=document.querySelector("#tasks-div");
-    console.log("aqui");
-    console.log(task.checked);
 
     //this task Div
     const thisTaskDiv=document.createElement("div");
@@ -132,19 +131,24 @@ function taskIsDone(task, thisDiv){
 }
 
 function showMoreContent(task){
+    const breakLine = document.createElement("br");
     const moreContent = document.createElement("div");
     moreContent.classList.add("more-content");
     //task description
-    const taskDescription = makeP("display-task", "description-extra", task.description);
-    //due date
-    let date = format(parseISO(task.date), 'dd MMM');
-    const dateParag= makeP("display-task", "display-task-date", "Due date: " + date);
+    const description = "Description: " +  task.description;
+    const taskDescription = makeP("display-task", "description-extra", description);
+
     
-    //date task added
-    const addedDate = makeP("display-task", "display-extra-added-date", "Task added on " + format(new Date(), 'dd MMM'));
+    //days to end
+    const daysLeft= differenceInCalendarDays(parseISO(task.date),new Date());
+    let daysLeftText;
+    if (daysLeft >=0) daysLeftText = daysLeft + " days to deadline.";
+    else daysLeftText = "Your time is up."
+
+    const addedDate = makeP("display-task", "display-extra-added-date", daysLeftText);
 
     moreContent.appendChild(taskDescription);
-    moreContent.appendChild(dateParag);
+    moreContent.appendChild(breakLine);
     moreContent.appendChild(addedDate);
 
     return moreContent;
@@ -167,11 +171,11 @@ function showTaskDiv(){
 }
 
 function openTaskDetails(){
-    console.log("details");
+
     let contentDiv = this.parentElement.lastChild;
 
     if (!contentDiv.style.height || contentDiv.style.height == "0px"){
-        contentDiv.style.height = "100px";
+        contentDiv.style.height = "80px";
     } 
     else {
         contentDiv.style.height = "0px";

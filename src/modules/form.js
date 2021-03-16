@@ -45,6 +45,7 @@ function makeNewEntryForm(){
     //priority
     const priorityLabel = makeLabel("Priority: ");
     const inputPriority = makeFormDropDown("priority", "input-priority", ["low", "medium", "high"]);
+    
     // submit
     const submit = document.createElement("button");
     submit.textContent = "Submit";
@@ -65,6 +66,7 @@ function makeNewEntryForm(){
     newEntryDiv.appendChild(inputDate);
     newEntryDiv.appendChild(priorityLabel);
     newEntryDiv.appendChild(inputPriority);
+    newEntryDiv.appendChild(document.createElement("br"));
     newEntryDiv.appendChild(submit);
     newEntryDiv.appendChild(cancel);
 
