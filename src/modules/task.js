@@ -55,7 +55,8 @@ function paintPriority(priorityLevel, divToPaint){
 function makeTask(index){
     const title = document.querySelector("#input-title").value;
     const description= document.querySelector("#input-description").value;
-    const date= document.querySelector("#input-date").value;
+    let date= document.querySelector("#input-date").value;
+    console.log(date);
     const priority = document.querySelector("#input-priority").value;
     const id= index;
     let done = false;
@@ -88,7 +89,9 @@ function displayTask(task){
 
     // task info
     const customCheckbox = makeCheckbox(task.id, task);
-    let date = format(parseISO(task.date), 'dd MMM');
+    let date;
+    if(!task.date) date = format(new Date(), 'dd MMM');
+    else date = format(parseISO(task.date), 'dd MMM');
     const dateParag= makeP("display-task", "display-task-date", date);
     const titleParag = makeP("display-task", "display-task-title",task.title);
     
@@ -139,7 +142,7 @@ function showMoreContent(task){
 
     
     //days to end
-    const daysLeft= differenceInCalendarDays(parseISO(task.date),new Date());
+    const daysLeft = differenceInCalendarDays(parseISO(task.date),new Date());
     let daysLeftText;
     if (daysLeft >=0) daysLeftText = daysLeft + " days to deadline.";
     else daysLeftText = "Your time is up."
